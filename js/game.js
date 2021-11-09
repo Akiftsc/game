@@ -16,7 +16,7 @@ function showTextNode(textNodeIndex, imgNodeIndex) {
   const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
   textElement.innerText = textNode.text;
   const imgNode = textNodes.find(imgNode => textNode.img === imgNodeIndex)
-  imgElement.innerHTML = `<img src="${textNode.img}" class="img-fluid" width="625" height="555">`;
+  imgElement.innerHTML = `<img src="${textNode.img}" class="img-fluid image">`;
   while (optionButtonsElement.firstChild) {
     optionButtonsElement.removeChild(optionButtonsElement.firstChild)
   }
