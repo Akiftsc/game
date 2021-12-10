@@ -1,9 +1,9 @@
-const textElement = document.getElementById('text')
+const textElement = document.querySelector('#text p')
 const optionButtonsElement = document.getElementById('option-buttons')
 const imgElement = document.getElementById("img")
 const container = document.querySelector("#cont")
 let button = `
-  <button type="button" id="play" onclick="beforeGame()" class="btn btn-outline-primary w-25 h-25">Oyna</button>
+<button type="button" id="play" onclick="beforeGame()" class="btn btn-outline-primary w-25 h-25">Oyna</button>
 `;
 let state = {}
 
@@ -13,26 +13,32 @@ function startGame() {
 }
 
 function showTextNode(textNodeIndex, imgNodeIndex) {
-  const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
-  textElement.innerText = textNode.text;
-  const imgNode = textNodes.find(imgNode => textNode.img === imgNodeIndex)
-  imgElement.innerHTML = `<img src="${textNode.img}" class="img-fluid image">`;
-  while (optionButtonsElement.firstChild) {
-    optionButtonsElement.removeChild(optionButtonsElement.firstChild)
-  }
-
-  textNode.options.forEach(option => {
-    if (showOption(option)) {
-      const button = document.createElement('button')
-      button.innerText = option.text
-      button.classList.add('btn')
-      button.addEventListener('click', () => selectOption(option))
-      optionButtonsElement.appendChild(button)
-    }
-  })
-
-}
-
+    // Seçenekler 
+    function inf(){
+      while (optionButtonsElement.firstChild) {
+        optionButtonsElement.removeChild(optionButtonsElement.firstChild)
+      }
+      textNode.options.forEach(option => {
+        if (showOption(option)) {
+          const button = document.createElement('button')
+          button.innerText = option.text;
+          button.classList.add("dsb");
+          button.setAttribute("data-aos", "fade-up");
+          button.addEventListener('click', () => {
+            selectOption(option);
+          })
+          optionButtonsElement.appendChild(button)
+         var f = 0;
+         setInterval(g, 1000);
+         function g(){
+          f++;
+          if (f === 5) {
+            button.classList.remove("dsb");
+           }
+         }
+        }
+      })
+      
 function showOption(option) {
   return option.requiredState == null || option.requiredState(state)
 }
@@ -46,11 +52,37 @@ function selectOption(option) {
   state = Object.assign(state, option.setState)
   showTextNode(nextTextNodeId)
 }
+    }
+  
+  let saniye = false;
+  const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
+    var i = 0;
+		var tag = document.getElementById("p");
+		var html = document.getElementById("p").innerHTML;
+		var attr = tag.setAttribute("data", html);
+		var txt = textNode.text;
+		var speed = 60;
+
+		function typeWriter() {
+		  if (i <= txt.length) {
+		    document.getElementById("p").innerHTML = txt.slice(0 , i + 1);
+		    i++;
+		    setTimeout(typeWriter, speed);
+      }}
+      typeWriter();    
+      inf();  
+  textElement.innerHTML = textNode.text;  
+  const imgNode = textNodes.find(imgNode => textNode.img === imgNodeIndex)
+  imgElement.innerHTML = `<img src="${textNode.img}" class="img-fluid image">`;
+
+
+}
+
 
 const textNodes = [
   {
     id: 1,
-    text: "Gözünü aciyorsun, etrafın nemli ve bir o kadar karanlik, sadece neler olduğunu hatirlamaya calisiyorsun…",
+    text: "Gözünü aciyorsun, etrafın nemli ve bir o kadar <br> karanlik sadece neler olduğunu hatirlamaya calisiyorsun…",
     options: [
       {
         text: 'Magaradan cik',
@@ -110,7 +142,7 @@ const textNodes = [
   {
     id:5,
     img: "images/baraka.jpg",
-    text: 'Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!',
+    text: 'Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!Güneş ufuğun içinde kaybolana kadar yürüdün 50m ileride bir baraka gözüküyor!',
     options: [
       {        
         text: "Devam",
@@ -135,6 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
   container.style.display = "none";
   container.style.visibility = "none";
   document.querySelector("#button-container").innerHTML = button;
+  
 })
 
 function beforeGame(){
@@ -143,4 +176,9 @@ function beforeGame(){
   container.style.display = "block";
   container.style.visibility = "visible";
 }
+
+
+
+
+
 
